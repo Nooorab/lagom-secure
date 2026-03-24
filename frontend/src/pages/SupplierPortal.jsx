@@ -21,7 +21,7 @@ const SupplierPortal = () => {
     // Simulate 2000ms network latency
     setTimeout(async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/verify-sso', {
+        const res = await fetch('https://lagom-secure.onrender.com/api/verify-sso', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: "dummy-mfa-token" })
@@ -46,7 +46,7 @@ const SupplierPortal = () => {
     e.preventDefault();
     setScanLoading(true);
     try {
-      const res = await fetch('http://localhost:3000/api/scan-domain', {
+      const res = await fetch('https://lagom-secure.onrender.com/api/scan-domain', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ domain })
@@ -70,7 +70,7 @@ const SupplierPortal = () => {
     formData.append('document', file);
 
     try {
-      const res = await fetch('http://localhost:3000/api/upload-pdf', {
+      const res = await fetch('https://lagom-secure.onrender.com/api/upload-pdf', {
         method: 'POST',
         body: formData
       });
