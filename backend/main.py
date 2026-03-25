@@ -118,15 +118,17 @@ async def upload_pdf(document: UploadFile = File(...)):
         if not full_text.strip():
              full_text = "Empty document or unreadable image PDF."
 
-        # Send to Gemini (Supporting up to ~30+ pages, roughly 100,000 characters)
+        print("==================================================")
+        print("📄 EXTRACTED PDF TEXT (FIRST 500 CHARACTERS):")
+        print(f"{full_text[:500]}...")
+        print("==================================================")
+
+        # Send to Gemini
         prompt = (
-            "Act as a strict NIS2 compliance auditor. Read the following enterprise policy document carefully. "
-            "Your task is to exhaustively check the document against the following requirements:\n"
-            "1. Does the policy explicitly mandate 24-hour incident reporting to authorities?\n"
-            "2. Does the policy explicitly mandate that all employees undergo regular cyber security training?\n\n"
-            "Reply strictly in JSON format with exactly two boolean keys: 'has_24hr_reporting' and 'has_training'. "
-            "If a requirement is not explicitly mentioned or is vague, return false.\n\n"
-            f"--- DOCUMENT TEXT ---\n{full_text[:100000]}\n--- END DOCUMENT TEXT ---"
+            "Act as a NIS2 auditor. Read this policy text. "
+            "Does it mandate 24-hour incident reporting? Does it mandate employee cyber training? "
+            "Reply strictly in JSON format with exactly two boolean keys: has_24hr_reporting and has_training."
+            f"\n\nText: {full_text[:3000]}" # Limit to 3000 chars for prompt safety
         )
 
         try:
@@ -139,6 +141,11 @@ async def upload_pdf(document: UploadFile = File(...)):
              )
              import json
              result = json.loads(response.text)
+             
+             print("🧠 GEMINI RAW JSON RESPONSE:")
+             print(response.text)
+             print("==================================================")
+             
              return result
         except Exception as e:
              # Fallback if Gemini fails
