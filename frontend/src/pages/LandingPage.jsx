@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shield, CheckCircle, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
@@ -17,8 +18,8 @@ const LandingPage = () => {
               Moving the market from "blind trust" to verifiable proof. LagomSecure automates the administrative burden of vetting thousands of suppliers against NIS2 requirements.
             </p>
             <div className="flex gap-4">
-              <a href="/dashboard" className="btn btn-primary">View Enterprise Dashboard</a>
-              <a href="/portal" className="btn btn-secondary">Supplier Portal</a>
+              <Link to="/dashboard" className="btn btn-primary">View Enterprise Dashboard</Link>
+              <Link to="/portal" className="btn btn-secondary">Supplier Portal</Link>
             </div>
           </div>
           <div className="hero-image glass-card" style={{ padding: '0', overflow: 'hidden', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
