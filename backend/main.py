@@ -25,6 +25,10 @@ app.add_middleware(
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY", "dummy_key"))
 
+@app.get("/")
+async def root():
+    return {"status": "LagomSecure API is awake and running!"}
+
 class ScanDomainRequest(BaseModel):
     domain: str
 
