@@ -128,7 +128,7 @@ async def upload_pdf(document: UploadFile = File(...)):
             "Act as a NIS2 auditor. Read this policy text. "
             "Does it mandate 24-hour incident reporting? Does it mandate employee cyber training? "
             "Reply strictly in JSON format with exactly two boolean keys: has_24hr_reporting and has_training."
-            f"\n\nText: {full_text[:3000]}" # Limit to 3000 chars for prompt safety
+            f"\n\nText: {full_text[:100000]}" # Read up to 35 pages of the document
         )
 
         try:
