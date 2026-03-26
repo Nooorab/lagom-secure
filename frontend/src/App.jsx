@@ -12,9 +12,9 @@ function App() {
     <div className="app-container">
       <nav className="navbar glass">
         <div className="container">
-          <Link to="/" className="logo">
-            <Shield size={28} color="#38bdf8" />
-            LagomSecure
+          <Link to="/" className="logo" style={{ letterSpacing: '-1.5px', fontWeight: '400' }}>
+            <Shield size={28} color="#38bdf8" style={{ letterSpacing: 'normal' }} />
+            KLΛRA
           </Link>
           <div className="nav-links">
             <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>Enterprise Dashboard</Link>
@@ -33,11 +33,11 @@ function App() {
 
       <footer>
         <div className="container footer-content">
-          <div className="logo" style={{ fontSize: '1.2rem' }}>
-            <Shield size={20} color="#38bdf8" />
-            LagomSecure
+          <div className="logo" style={{ fontSize: '1.2rem', letterSpacing: '-1px', fontWeight: '400' }}>
+            <Shield size={20} color="#38bdf8" style={{ letterSpacing: 'normal' }} />
+            KLΛRA
           </div>
-          <p className="nav-link" style={{ fontSize: '0.9rem' }}>© 2026 LagomSecure Prototype. Built for Swedish Security.</p>
+          <p className="nav-link" style={{ fontSize: '0.9rem' }}>© 2026 KLARA Prototype. Built for Swedish Security.</p>
         </div>
       </footer>
     </div>

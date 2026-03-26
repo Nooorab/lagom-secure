@@ -15,7 +15,7 @@ const LandingPage = () => {
               <span style={{ color: 'var(--primary)' }}>Supply Chain Compliance</span>
             </h1>
             <p style={{ fontSize: '1.2rem', marginBottom: '32px', maxWidth: '500px' }}>
-              Moving the market from "blind trust" to verifiable proof. LagomSecure automates the administrative burden of vetting thousands of suppliers against NIS2 requirements.
+              Moving the market from "blind trust" to verifiable proof. KLARA automates the administrative burden of vetting thousands of suppliers against NIS2 requirements.
             </p>
             <div className="flex gap-4">
               <Link to="/dashboard" className="btn btn-primary">View Enterprise Dashboard</Link>
@@ -23,7 +23,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="hero-image glass-card" style={{ padding: '0', overflow: 'hidden', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-             <img src="/images/hero_bg.webp" alt="LagomSecure Abstract Dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000' }} />
+             <img src="/images/hero_bg.webp" alt="KLARA Abstract Dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000' }} />
           </div>
         </div>
       </section>
