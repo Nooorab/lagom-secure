@@ -1,12 +1,19 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Shield, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import LandingPage from './pages/LandingPage';
 import EnterpriseDashboard from './pages/EnterpriseDashboard';
 import SupplierPortal from './pages/SupplierPortal';
 
 function App() {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
+
+  const toggleLanguage = () => {
+    const nextLang = i18n.language.startsWith('sv') ? 'en' : 'sv';
+    i18n.changeLanguage(nextLang);
+  };
 
   return (
     <div className="app-container">
@@ -16,9 +23,12 @@ function App() {
             <Shield size={28} color="#38bdf8" style={{ letterSpacing: 'normal' }} />
             KLΛRA
           </Link>
-          <div className="nav-links">
-            <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>Enterprise Dashboard</Link>
-            <Link to="/portal" className="btn btn-primary">Supplier Portal <ChevronRight size={18} /></Link>
+          <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <Link to="/dashboard" className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>{t('nav.dashboard')}</Link>
+            <Link to="/portal" className="btn btn-primary">{t('nav.portal')} <ChevronRight size={18} /></Link>
+            <button onClick={toggleLanguage} className="btn" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', padding: '6px 12px', fontSize: '14px', borderRadius: '16px' }}>
+              {i18n.language.startsWith('sv') ? '🇸🇪 SV' : '🇬🇧 EN'}
+            </button>
           </div>
         </div>
       </nav>
@@ -37,7 +47,7 @@ function App() {
             <Shield size={20} color="#38bdf8" style={{ letterSpacing: 'normal' }} />
             KLΛRA
           </div>
-          <p className="nav-link" style={{ fontSize: '0.9rem' }}>© 2026 KLARA Prototype. Built for Swedish Security.</p>
+          <p className="nav-link" style={{ fontSize: '0.9rem' }}>{t('nav.footer')}</p>
         </div>
       </footer>
     </div>

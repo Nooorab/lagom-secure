@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Activity, Users, ShieldAlert, CheckCircle, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const EnterpriseDashboard = () => {
+  const { t } = useTranslation();
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,17 +22,17 @@ const EnterpriseDashboard = () => {
   }, []);
 
   const stats = [
-    { label: 'Total Suppliers', value: suppliers.length, icon: Users, color: '#38bdf8' },
-    { label: 'Compliant (Pass)', value: suppliers.filter(s => s.status === 'Pass').length, icon: CheckCircle, color: '#22c55e' },
-    { label: 'Pending Review', value: suppliers.filter(s => s.status === 'Pending').length, icon: Clock, color: '#f59e0b' },
-    { label: 'Non-Compliant (Fail)', value: suppliers.filter(s => s.status === 'Fail').length, icon: ShieldAlert, color: '#ef4444' }
+    { label: t('dashboard.stat_total'), value: suppliers.length, icon: Users, color: '#38bdf8' },
+    { label: t('dashboard.stat_pass'), value: suppliers.filter(s => s.status === 'Pass').length, icon: CheckCircle, color: '#22c55e' },
+    { label: t('dashboard.stat_pending'), value: suppliers.filter(s => s.status === 'Pending').length, icon: Clock, color: '#f59e0b' },
+    { label: t('dashboard.stat_fail'), value: suppliers.filter(s => s.status === 'Fail').length, icon: ShieldAlert, color: '#ef4444' }
   ];
 
   const getStatusBadge = (status) => {
     switch(status) {
-      case 'Pass': return <span className="badge badge-pass"><CheckCircle size={14} /> Pass</span>;
-      case 'Fail': return <span className="badge badge-fail"><ShieldAlert size={14} /> Fail</span>;
-      case 'Pending': return <span className="badge badge-pending"><Clock size={14} /> Pending</span>;
+      case 'Pass': return <span className="badge badge-pass"><CheckCircle size={14} /> {t('dashboard.lbl_pass')}</span>;
+      case 'Fail': return <span className="badge badge-fail"><ShieldAlert size={14} /> {t('dashboard.lbl_fail')}</span>;
+      case 'Pending': return <span className="badge badge-pending"><Clock size={14} /> {t('dashboard.lbl_pending')}</span>;
       default: return null;
     }
   };
@@ -39,11 +41,11 @@ const EnterpriseDashboard = () => {
     <div className="container animate-fade-in">
       <div className="flex justify-between align-center mb-8" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
         <div>
-          <h1 style={{ marginBottom: '8px' }}>Enterprise Dashboard</h1>
-          <p>Supply Chain NIS2 Compliance Overview</p>
+          <h1 style={{ marginBottom: '8px' }}>{t('dashboard.title')}</h1>
+          <p>{t('dashboard.subtitle')}</p>
         </div>
         <div className="badge badge-pass" style={{ fontSize: '1rem', padding: '8px 16px' }}>
-          <Activity size={18} /> System Active
+          <Activity size={18} /> {t('dashboard.system_active')}
         </div>
       </div>
 
@@ -66,18 +68,18 @@ const EnterpriseDashboard = () => {
 
       {/* Supplier List */}
       <div className="glass-card">
-        <h3 className="mb-6">Connected Suppliers</h3>
+        <h3 className="mb-6">{t('dashboard.list_title')}</h3>
         {loading ? (
-          <div className="text-center" style={{ padding: '40px' }}>Loading suppliers...</div>
+          <div className="text-center" style={{ padding: '40px' }}>Loading...</div>
         ) : (
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--border)', color: 'var(--text-muted)' }}>
-                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>Supplier Name</th>
-                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>NIS2 Status</th>
-                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>Last Checked</th>
-                  <th style={{ padding: '16px 8px', fontWeight: '500', textAlign: 'right' }}>Action</th>
+                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_name')}</th>
+                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_status')}</th>
+                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_date')}</th>
+                  <th style={{ padding: '16px 8px', fontWeight: '500', textAlign: 'right' }}>{t('dashboard.col_action')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -87,7 +89,7 @@ const EnterpriseDashboard = () => {
                     <td style={{ padding: '16px 8px' }}>{getStatusBadge(supplier.status)}</td>
                     <td style={{ padding: '16px 8px', color: 'var(--text-muted)' }}>{supplier.lastChecked}</td>
                     <td style={{ padding: '16px 8px', textAlign: 'right' }}>
-                      <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '0.875rem' }}>View Details</button>
+                      <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '0.875rem' }}>{t('dashboard.btn_details')}</button>
                     </td>
                   </tr>
                 ))}
