@@ -243,7 +243,14 @@ const SupplierPortal = () => {
 
       {/* Step 4: Final Screen */}
       {step === 4 && (() => {
-        const allPassed = aiAnalysis?.has_24hr_reporting && aiAnalysis?.has_training && scanResult?.ssl_valid && scanResult?.dmarc_valid;
+        const failedChecks = [];
+        if (!scanResult?.ssl_valid) failedChecks.push(t('portal.err_tls'));
+        if (!scanResult?.dmarc_valid) failedChecks.push(t('portal.err_dmarc'));
+        if (!aiAnalysis?.has_24hr_reporting) failedChecks.push(t('portal.err_24hr'));
+        if (!aiAnalysis?.has_training) failedChecks.push(t('portal.err_train'));
+
+        const allPassed = failedChecks.length === 0;
+        
         return (
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`p-12 text-center rounded-2xl bg-gray-900/60 backdrop-blur-xl border flex flex-col items-center mt-10 ${allPassed ? 'border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.15)]' : 'border-orange-500/30 shadow-[0_0_30px_rgba(249,115,22,0.15)]'}`}>
             {allPassed ? (
@@ -251,21 +258,35 @@ const SupplierPortal = () => {
                 <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mb-6 border border-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
                   <CheckCircle size={48} className="text-green-500" />
                 </div>
-                <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.success_title')}</h2>
-                <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">{t('portal.success_desc')}</p>
+                <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.success_title_dynamic')}</h2>
+                <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">{t('portal.success_desc_dynamic')}</p>
+                
+                <a href="/dashboard" className="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center gap-2 border border-white/10">
+                  {t('portal.btn_return_dash')} <ArrowRight size={18} />
+                </a>
               </>
             ) : (
               <>
                 <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mb-6 border border-orange-500/50 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
                   <AlertTriangle size={48} className="text-orange-500" />
                 </div>
-                <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.fail_title')}</h2>
-                <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">{t('portal.fail_desc')}</p>
+                <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.fail_title_dynamic')}</h2>
+                <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
+                  {t('portal.fail_desc_prefix')}
+                  <strong className="block mt-3 mb-3 p-3 bg-black/40 rounded border border-red-500/20 text-red-400">{failedChecks.join(', ')}</strong>
+                  {t('portal.fail_desc_suffix')}
+                </p>
+                
+                <div className="flex gap-4">
+                  <button className="bg-primary hover:bg-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+                    {t('portal.btn_remediation')}
+                  </button>
+                  <button onClick={() => setStep(3)} className="bg-transparent border border-white/20 hover:bg-white/5 text-white font-medium py-3 px-6 rounded-lg transition-all">
+                    {t('portal.btn_reupload')}
+                  </button>
+                </div>
               </>
             )}
-            <a href="/" className="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center gap-2 border border-white/10">
-              {t('portal.btn_close')} <ArrowRight size={18} />
-            </a>
           </motion.div>
         );
       })()}

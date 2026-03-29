@@ -94,7 +94,19 @@ const resources = {
         "success_desc": "Your NIS2 compliance data has been securely routed to your enterprise customer.",
         "fail_title": "Report Submitted to Enterprise: Action Required",
         "fail_desc": "Your compliance report has been shared with your buyer, but critical NIS2 gaps were found. Please review the highlighted failures and upload a revised policy.",
-        "btn_close": "Close Portal"
+        "btn_close": "Close Portal",
+        "success_title_dynamic": "NIS2 Compliance Verified",
+        "success_desc_dynamic": "Your infrastructure and policies meet all required enterprise mandates. Your report has been securely shared with your buyer.",
+        "btn_return_dash": "Return to Dashboard",
+        "fail_title_dynamic": "Action Required: Critical NIS2 Gaps Found",
+        "fail_desc_prefix": "Your preliminary scan found critical compliance gaps. Specifically: ",
+        "fail_desc_suffix": ". To protect your enterprise contract, please review KLARA’s automated remediation steps.",
+        "btn_remediation": "View Remediation Playbook",
+        "btn_reupload": "Upload Revised Policy",
+        "err_tls": "Missing TLS 1.3",
+        "err_dmarc": "Missing DMARC/SPF Records",
+        "err_24hr": "Missing 24-Hour Incident Reporting",
+        "err_train": "Missing Mandatory Cyber Training"
       }
     }
   },
@@ -189,7 +201,19 @@ const resources = {
         "success_desc": "Din NIS2-efterlevnadsdata har dirigerats säkert till din företagskund.",
         "fail_title": "Rapport Skickad till Företag: Åtgärd Krävs",
         "fail_desc": "Din rapport har delats med din köpare, men allvarliga NIS2-brister hittades. Läs igenom bristerna och ladda upp en reviderad policy.",
-        "btn_close": "Stäng Portal"
+        "btn_close": "Stäng Portal",
+        "success_title_dynamic": "NIS2-efterlevnad Verifierad",
+        "success_desc_dynamic": "Din infrastruktur och dina policys uppfyller alla företagskrav. Din rapport har delats säkert med din köpare.",
+        "btn_return_dash": "Återvänd till översikten",
+        "fail_title_dynamic": "Åtgärd Krävs: Kritiska NIS2-brister Hittade",
+        "fail_desc_prefix": "Din preliminära skanning hittade kritiska brister i efterlevnaden. Specifikt: ",
+        "fail_desc_suffix": ". För att skydda ditt företagskontrakt, vänligen läs KLARAs automatiserade åtgärdsplan.",
+        "btn_remediation": "Visa åtgärdsplan",
+        "btn_reupload": "Ladda upp reviderad policy",
+        "err_tls": "Saknar TLS 1.3",
+        "err_dmarc": "Saknar DMARC/SPF-poster",
+        "err_24hr": "Saknar 24-timmars incidentrapportering",
+        "err_train": "Saknar obligatorisk säkerhetsutbildning"
       }
     }
   }
