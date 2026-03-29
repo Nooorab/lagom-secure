@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, FileText, Search, ArrowRight, ShieldCheck, CheckCircle, Activity, AlertTriangle, FileEdit, UploadCloud, ShieldAlert, XCircle } from 'lucide-react';
+import { Lock, FileText, Search, ArrowRight, ShieldCheck, CheckCircle, Activity, AlertTriangle, FileEdit, UploadCloud, ShieldAlert, XCircle, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -305,14 +305,14 @@ const SupplierPortal = () => {
                 </div>
                 
                 <div className="flex flex-col gap-3 w-full max-w-xl mx-auto">
-                  <button className="w-full bg-primary hover:bg-blue-500 text-white font-medium py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)] flex justify-center items-center gap-2 text-lg">
+                  <button onClick={() => setStep(5)} className="w-full bg-primary hover:bg-blue-500 text-white font-medium py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)] flex justify-center items-center gap-2 text-lg">
                     <FileEdit size={20} /> {t('portal.btn_cap')}
                   </button>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button onClick={() => setStep(3)} className="flex-1 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-medium py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2">
                       <UploadCloud size={18} /> {t('portal.btn_reupload')}
                     </button>
-                    <button className="flex-1 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 text-red-300 font-medium py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2">
+                    <button onClick={() => setStep(6)} className="flex-1 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 text-red-300 font-medium py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2">
                       <ShieldAlert size={18} /> {t('portal.btn_exception')}
                     </button>
                   </div>
@@ -322,6 +322,73 @@ const SupplierPortal = () => {
           </motion.div>
         );
       })()}
+
+      {/* Step 5: CAP Form */}
+      {step === 5 && (
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="p-8 rounded-2xl bg-gray-900/60 backdrop-blur-xl border border-white/10 shadow-2xl">
+          <div className="mb-6 border-b border-white/10 pb-6">
+            <h2 className="text-2xl font-bold mb-2 flex items-center gap-3"><FileEdit className="text-primary" /> {t('portal.cap_title')}</h2>
+            <p className="text-gray-400">{t('portal.cap_desc')}</p>
+          </div>
+          <form onSubmit={(e) => { e.preventDefault(); setStep(7); }}>
+            <div className="mb-6">
+              <label className="block text-sm font-semibold mb-2 text-gray-300">{t('portal.cap_lbl_plan')}</label>
+              <textarea required rows="4" className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-primary resize-none placeholder-gray-600" placeholder={t('portal.cap_placeholder_plan')}></textarea>
+            </div>
+            <div className="mb-8">
+              <label className="block text-sm font-semibold mb-2 text-gray-300">{t('portal.cap_lbl_date')}</label>
+              <input required type="date" className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-primary [color-scheme:dark]" />
+            </div>
+            <div className="flex gap-4">
+              <button type="button" onClick={() => setStep(4)} className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium py-3 px-6 rounded-lg transition-all">{t('portal.btn_cancel')}</button>
+              <button type="submit" className="flex-[2] bg-primary hover:bg-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]">{t('portal.btn_submit_cap_final')}</button>
+            </div>
+          </form>
+        </motion.div>
+      )}
+
+      {/* Step 6: Exception Form */}
+      {step === 6 && (
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="p-8 rounded-2xl bg-gray-900/60 backdrop-blur-xl border border-red-500/20 shadow-[0_0_40px_rgba(239,68,68,0.1)]">
+          <div className="mb-6 border-b border-white/10 pb-6">
+            <h2 className="text-2xl font-bold mb-2 flex items-center gap-3"><ShieldAlert className="text-red-400" /> {t('portal.exc_title')}</h2>
+            <p className="text-gray-400">{t('portal.exc_desc')}</p>
+          </div>
+          <form onSubmit={(e) => { e.preventDefault(); setStep(7); }}>
+            <div className="mb-6">
+              <label className="block text-sm font-semibold mb-2 text-gray-300">{t('portal.exc_lbl_reason')}</label>
+              <select required className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-red-400 appearance-none">
+                <option value="">-- Select Reason --</option>
+                <option value="technical">{t('portal.exc_opt_tech')}</option>
+                <option value="resource">{t('portal.exc_opt_res')}</option>
+                <option value="business">{t('portal.exc_opt_biz')}</option>
+              </select>
+            </div>
+            <div className="mb-8">
+              <label className="block text-sm font-semibold mb-2 text-gray-300">{t('portal.exc_lbl_mitigation')}</label>
+              <textarea required rows="4" className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:outline-none focus:border-red-400 resize-none placeholder-gray-600" placeholder={t('portal.exc_placeholder_mitigation')}></textarea>
+            </div>
+            <div className="flex gap-4">
+              <button type="button" onClick={() => setStep(4)} className="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium py-3 px-6 rounded-lg transition-all">{t('portal.btn_cancel')}</button>
+              <button type="submit" className="flex-[2] bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 text-red-300 font-bold py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(239,68,68,0.2)]">{t('portal.btn_submit_exc_final')}</button>
+            </div>
+          </form>
+        </motion.div>
+      )}
+
+      {/* Step 7: Submission Processing Screen */}
+      {step === 7 && (
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="p-16 text-center rounded-2xl bg-gray-900/60 backdrop-blur-xl border border-blue-500/30 shadow-[0_0_40px_rgba(56,189,248,0.15)] flex flex-col items-center mt-10">
+          <div className="w-24 h-24 bg-blue-500/10 rounded-full flex items-center justify-center mb-8 border border-blue-500/30">
+            <Clock size={48} className="text-primary animate-pulse" />
+          </div>
+          <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.sub_title')}</h2>
+          <p className="text-gray-400 text-lg mb-10 max-w-lg mx-auto leading-relaxed">{t('portal.sub_desc')}</p>
+          <a href="/" className="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center gap-2 border border-white/10">
+            {t('portal.btn_return_landing')} <ArrowRight size={18} />
+          </a>
+        </motion.div>
+      )}
     </div>
   );
 };

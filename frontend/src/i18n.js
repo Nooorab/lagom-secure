@@ -107,7 +107,25 @@ const resources = {
         "err_dmarc": "Missing DMARC/SPF Records",
         "err_24hr": "Missing 24-Hour Incident Reporting",
         "err_train": "Missing Mandatory Cyber Training",
-        "err_scan_skip": "Mandatory Network Scan Skipped"
+        "err_scan_skip": "Mandatory Network Scan Skipped",
+        "cap_title": "Submit Corrective Action Plan",
+        "cap_desc": "Outline how and when your organization will resolve the identified compliance gaps.",
+        "cap_lbl_plan": "Remediation Plan",
+        "cap_placeholder_plan": "Describe the specific technical or policy changes you will implement...",
+        "cap_lbl_date": "Target Completion Date",
+        "btn_cancel": "Cancel",
+        "btn_submit_cap_final": "Submit Remediation Plan",
+        "exc_title": "Request Risk Exception",
+        "exc_desc": "Request a formal waiver from your enterprise buyer. All exceptions require business justification and compensating controls.",
+        "exc_lbl_reason": "Primary Reason for Exception",
+        "exc_opt_tech": "Technical Limitation",
+        "exc_opt_res": "Resource Constraints",
+        "exc_opt_biz": "Business Process Conflict",
+        "exc_lbl_mitigation": "Compensating Controls",
+        "exc_placeholder_mitigation": "Describe alternative controls that mitigate this risk...",
+        "btn_submit_exc_final": "Submit Exception Request",
+        "sub_title": "Submission Processing",
+        "sub_desc": "Your request has been securely routed to the enterprise risk team for review. You will be notified of their decision via email."
       }
     }
   },
@@ -215,7 +233,25 @@ const resources = {
         "err_dmarc": "Saknar DMARC/SPF-poster",
         "err_24hr": "Saknar 24-timmars incidentrapportering",
         "err_train": "Saknar obligatorisk säkerhetsutbildning",
-        "err_scan_skip": "Obligatorisk nätverksskanning hoppades över"
+        "err_scan_skip": "Obligatorisk nätverksskanning hoppades över",
+        "cap_title": "Skicka Åtgärdsplan",
+        "cap_desc": "Beskriv hur och när din organisation kommer att åtgärda de identifierade bristerna.",
+        "cap_lbl_plan": "Åtgärdsplan",
+        "cap_placeholder_plan": "Beskriv de specifika tekniska eller policyändringar du kommer att implementera...",
+        "cap_lbl_date": "Måldatum för färdigställande",
+        "btn_cancel": "Avbryt",
+        "btn_submit_cap_final": "Skicka Åtgärdsplan",
+        "exc_title": "Begär Riskundantag",
+        "exc_desc": "Begär ett formellt undantag från din företagsköpare. Alla undantag kräver affärsmässig motivering och kompenserande åtgärder.",
+        "exc_lbl_reason": "Huvudsaklig anledning till undantag",
+        "exc_opt_tech": "Teknisk begränsning",
+        "exc_opt_res": "Resursbrist",
+        "exc_opt_biz": "Affärsprocesskonflikt",
+        "exc_lbl_mitigation": "Kompenserande åtgärder",
+        "exc_placeholder_mitigation": "Beskriv alternativa kontroller som mildrar denna risk...",
+        "btn_submit_exc_final": "Skicka Begäran",
+        "sub_title": "Inlämning Behandlas",
+        "sub_desc": "Din begäran har dirigerats säkert till företagets riskteam för granskning. Du kommer att meddelas om deras beslut via e-post."
       }
     }
   }
