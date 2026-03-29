@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, FileText, Search, ArrowRight, ShieldCheck, CheckCircle, Activity, AlertTriangle, FileEdit, UploadCloud, ShieldAlert } from 'lucide-react';
+import { Lock, FileText, Search, ArrowRight, ShieldCheck, CheckCircle, Activity, AlertTriangle, FileEdit, UploadCloud, ShieldAlert, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -268,7 +268,7 @@ const SupplierPortal = () => {
         const allPassed = failedChecks.length === 0;
         
         return (
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`p-12 text-center rounded-2xl bg-gray-900/60 backdrop-blur-xl border flex flex-col items-center mt-10 ${allPassed ? 'border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.15)]' : 'border-orange-500/30 shadow-[0_0_30px_rgba(249,115,22,0.15)]'}`}>
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`p-12 text-center rounded-2xl bg-gray-900/60 backdrop-blur-xl border flex flex-col items-center mt-10 ${allPassed ? 'border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.15)]' : 'border-red-500/30 shadow-[0_0_40px_rgba(239,68,68,0.15)]'}`}>
             {allPassed ? (
               <>
                 <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mb-6 border border-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
@@ -277,36 +277,47 @@ const SupplierPortal = () => {
                 <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.success_title_dynamic')}</h2>
                 <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">{t('portal.success_desc_dynamic')}</p>
                 
-                <a href="/dashboard" className="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center gap-2 border border-white/10">
-                  {t('portal.btn_return_dash')} <ArrowRight size={18} />
+                <a href="/" className="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center gap-2 border border-white/10">
+                  {t('portal.btn_return_landing')} <ArrowRight size={18} />
                 </a>
               </>
             ) : (
-              <>
-                <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mb-6 border border-orange-500/50 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
-                  <AlertTriangle size={48} className="text-orange-500" />
+              <div className="w-full">
+                <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                  <AlertTriangle size={40} className="text-red-500" />
                 </div>
                 <h2 className="text-3xl font-bold mb-4 text-white">{t('portal.fail_title_dynamic')}</h2>
-                <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
+                <p className="text-gray-400 text-base mb-8 max-w-lg mx-auto leading-relaxed">
                   {t('portal.fail_desc_prefix')}
-                  <strong className="block mt-3 mb-3 p-3 bg-black/40 rounded border border-red-500/20 text-red-400">{failedChecks.join(', ')}</strong>
-                  {t('portal.fail_desc_suffix')}
                 </p>
                 
-                <div className="flex flex-col gap-3 w-full max-w-lg mx-auto">
-                  <button className="w-full bg-primary hover:bg-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)] flex justify-center items-center gap-2">
-                    <FileEdit size={18} /> {t('portal.btn_cap')}
+                {/* Visual Gap Grid */}
+                <div className="w-full max-w-xl mx-auto mb-10 bg-black/40 backdrop-blur-md border border-white/5 rounded-xl p-6 shadow-inner">
+                  <h4 className="text-left text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 border-b border-white/10 pb-2">Identified Failures ({failedChecks.length})</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {failedChecks.map((gap, idx) => (
+                      <div key={idx} className="flex items-start gap-3 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                        <XCircle size={18} className="text-red-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm font-medium text-red-100 text-left">{gap}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="flex flex-col gap-3 w-full max-w-xl mx-auto">
+                  <button className="w-full bg-primary hover:bg-blue-500 text-white font-medium py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(56,189,248,0.2)] flex justify-center items-center gap-2 text-lg">
+                    <FileEdit size={20} /> {t('portal.btn_cap')}
                   </button>
-                  <div className="flex gap-3">
-                    <button onClick={() => setStep(3)} className="flex-1 bg-transparent border border-white/20 hover:bg-white/5 text-white font-medium py-3 px-4 rounded-lg transition-all flex justify-center items-center gap-2">
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button onClick={() => setStep(3)} className="flex-1 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-medium py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2">
                       <UploadCloud size={18} /> {t('portal.btn_reupload')}
                     </button>
-                    <button className="flex-1 bg-transparent border border-orange-500/30 hover:bg-orange-500/10 text-orange-400 font-medium py-3 px-4 rounded-lg transition-all flex justify-center items-center gap-2">
+                    <button className="flex-1 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 text-red-300 font-medium py-3 px-4 rounded-xl transition-all flex justify-center items-center gap-2">
                       <ShieldAlert size={18} /> {t('portal.btn_exception')}
                     </button>
                   </div>
                 </div>
-              </>
+              </div>
             )}
           </motion.div>
         );
