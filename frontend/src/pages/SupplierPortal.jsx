@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, FileText, Search, ArrowRight, ShieldCheck, CheckCircle, Activity, AlertTriangle } from 'lucide-react';
+import { Lock, FileText, Search, ArrowRight, ShieldCheck, CheckCircle, Activity, AlertTriangle, FileEdit, UploadCloud, ShieldAlert } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -47,6 +47,16 @@ const SupplierPortal = () => {
   const handleScan = async (e) => {
     e.preventDefault();
     setScanLoading(true);
+
+    // Demonstration Bypass: Allows the user to show a failing telemetry scan during pitches
+    if (domain.toLowerCase().includes('fail') || domain.toLowerCase().includes('expired')) {
+      setTimeout(() => {
+        setScanResult({ ssl_valid: false, dmarc_valid: false });
+        setScanLoading(false);
+      }, 1500);
+      return;
+    }
+
     try {
       const res = await fetch('https://lagom-secure.onrender.com/api/scan-domain', {
         method: 'POST',
@@ -244,8 +254,14 @@ const SupplierPortal = () => {
       {/* Step 4: Final Screen */}
       {step === 4 && (() => {
         const failedChecks = [];
-        if (!scanResult?.ssl_valid) failedChecks.push(t('portal.err_tls'));
-        if (!scanResult?.dmarc_valid) failedChecks.push(t('portal.err_dmarc'));
+        
+        if (!scanResult) {
+          failedChecks.push(t('portal.err_scan_skip'));
+        } else {
+          if (!scanResult.ssl_valid) failedChecks.push(t('portal.err_tls'));
+          if (!scanResult.dmarc_valid) failedChecks.push(t('portal.err_dmarc'));
+        }
+
         if (!aiAnalysis?.has_24hr_reporting) failedChecks.push(t('portal.err_24hr'));
         if (!aiAnalysis?.has_training) failedChecks.push(t('portal.err_train'));
 
@@ -277,13 +293,18 @@ const SupplierPortal = () => {
                   {t('portal.fail_desc_suffix')}
                 </p>
                 
-                <div className="flex gap-4">
-                  <button className="bg-primary hover:bg-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]">
-                    {t('portal.btn_remediation')}
+                <div className="flex flex-col gap-3 w-full max-w-lg mx-auto">
+                  <button className="w-full bg-primary hover:bg-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)] flex justify-center items-center gap-2">
+                    <FileEdit size={18} /> {t('portal.btn_cap')}
                   </button>
-                  <button onClick={() => setStep(3)} className="bg-transparent border border-white/20 hover:bg-white/5 text-white font-medium py-3 px-6 rounded-lg transition-all">
-                    {t('portal.btn_reupload')}
-                  </button>
+                  <div className="flex gap-3">
+                    <button onClick={() => setStep(3)} className="flex-1 bg-transparent border border-white/20 hover:bg-white/5 text-white font-medium py-3 px-4 rounded-lg transition-all flex justify-center items-center gap-2">
+                      <UploadCloud size={18} /> {t('portal.btn_reupload')}
+                    </button>
+                    <button className="flex-1 bg-transparent border border-orange-500/30 hover:bg-orange-500/10 text-orange-400 font-medium py-3 px-4 rounded-lg transition-all flex justify-center items-center gap-2">
+                      <ShieldAlert size={18} /> {t('portal.btn_exception')}
+                    </button>
+                  </div>
                 </div>
               </>
             )}

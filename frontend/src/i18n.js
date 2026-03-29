@@ -101,12 +101,14 @@ const resources = {
         "fail_title_dynamic": "Action Required: Critical NIS2 Gaps Found",
         "fail_desc_prefix": "Your preliminary scan found critical compliance gaps. Specifically: ",
         "fail_desc_suffix": ". To protect your enterprise contract, please review KLARA’s automated remediation steps.",
-        "btn_remediation": "View Remediation Playbook",
-        "btn_reupload": "Upload Revised Policy",
+        "btn_cap": "Submit Corrective Action Plan (CAP)",
+        "btn_reupload": "Re-upload Evidence",
+        "btn_exception": "Request Risk Exception",
         "err_tls": "Missing TLS 1.3",
         "err_dmarc": "Missing DMARC/SPF Records",
         "err_24hr": "Missing 24-Hour Incident Reporting",
-        "err_train": "Missing Mandatory Cyber Training"
+        "err_train": "Missing Mandatory Cyber Training",
+        "err_scan_skip": "Mandatory Network Scan Skipped"
       }
     }
   },
@@ -208,12 +210,14 @@ const resources = {
         "fail_title_dynamic": "Åtgärd Krävs: Kritiska NIS2-brister Hittade",
         "fail_desc_prefix": "Din preliminära skanning hittade kritiska brister i efterlevnaden. Specifikt: ",
         "fail_desc_suffix": ". För att skydda ditt företagskontrakt, vänligen läs KLARAs automatiserade åtgärdsplan.",
-        "btn_remediation": "Visa åtgärdsplan",
-        "btn_reupload": "Ladda upp reviderad policy",
+        "btn_cap": "Skicka Åtgärdsplan (CAP)",
+        "btn_reupload": "Ladda upp nytt bevis",
+        "btn_exception": "Begär Riskundantag",
         "err_tls": "Saknar TLS 1.3",
         "err_dmarc": "Saknar DMARC/SPF-poster",
         "err_24hr": "Saknar 24-timmars incidentrapportering",
-        "err_train": "Saknar obligatorisk säkerhetsutbildning"
+        "err_train": "Saknar obligatorisk säkerhetsutbildning",
+        "err_scan_skip": "Obligatorisk nätverksskanning hoppades över"
       }
     }
   }
