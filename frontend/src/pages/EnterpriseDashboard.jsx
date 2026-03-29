@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, Users, ShieldAlert, CheckCircle, Clock } from 'lucide-react';
+import { Activity, Users, ShieldAlert, CheckCircle, Clock, Search, Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -12,10 +12,10 @@ const EnterpriseDashboard = () => {
     // Hardcoded mock data for the enterprise overview
     setTimeout(() => {
       setSuppliers([
-        { id: '1', name: 'Nordic IT Systems', status: 'Pass', lastChecked: '2026-03-24' },
-        { id: '2', name: 'Andersson Logistics', status: 'Fail', lastChecked: '2026-03-23' },
-        { id: '3', name: 'Svea Cloud Services', status: 'Pass', lastChecked: '2026-03-22' },
-        { id: '4', name: 'Dalarna Health Tech', status: 'Pending', lastChecked: '2026-03-24' }
+        { id: '1', name: 'Nordic IT Systems', status: 'Pass', lastChecked: '2026-03-24', gap: 'gap_none' },
+        { id: '2', name: 'Andersson Logistics', status: 'Fail', lastChecked: '2026-03-23', gap: 'gap_invalid' },
+        { id: '3', name: 'Svea Cloud Services', status: 'Pass', lastChecked: '2026-03-22', gap: 'gap_none' },
+        { id: '4', name: 'Dalarna Health Tech', status: 'Pending', lastChecked: '2026-03-24', gap: 'gap_awaiting' }
       ]);
       setLoading(false);
     }, 600);
@@ -68,7 +68,24 @@ const EnterpriseDashboard = () => {
 
       {/* Supplier List */}
       <div className="glass-card">
-        <h3 className="mb-6">{t('dashboard.list_title')}</h3>
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="m-0 text-xl font-bold">{t('dashboard.list_title')}</h3>
+        </div>
+
+        {/* Search & Filter Row */}
+        <div className="flex gap-4 mb-6">
+          <div className="relative flex-1">
+            <Search size={18} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input 
+              type="text" 
+              placeholder={t('dashboard.search_placeholder')} 
+              className="w-full bg-black/40 border border-white/10 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" 
+            />
+          </div>
+          <button className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+            <Filter size={18} /> {t('dashboard.filter_btn')}
+          </button>
+        </div>
         {loading ? (
           <div className="text-center" style={{ padding: '40px' }}>Loading...</div>
         ) : (
@@ -78,6 +95,7 @@ const EnterpriseDashboard = () => {
                 <tr style={{ borderBottom: '1px solid var(--border)', color: 'var(--text-muted)' }}>
                   <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_name')}</th>
                   <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_status')}</th>
+                  <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_gap')}</th>
                   <th style={{ padding: '16px 8px', fontWeight: '500' }}>{t('dashboard.col_date')}</th>
                   <th style={{ padding: '16px 8px', fontWeight: '500', textAlign: 'right' }}>{t('dashboard.col_action')}</th>
                 </tr>
@@ -87,6 +105,11 @@ const EnterpriseDashboard = () => {
                   <tr key={supplier.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                     <td style={{ padding: '16px 8px', fontWeight: '500' }}>{supplier.name}</td>
                     <td style={{ padding: '16px 8px' }}>{getStatusBadge(supplier.status)}</td>
+                    <td style={{ padding: '16px 8px' }}>
+                      <span className={supplier.gap === 'gap_invalid' ? 'text-red-400 font-medium' : supplier.gap === 'gap_awaiting' ? 'text-yellow-400 font-medium' : 'text-gray-500'}>
+                        {t(`dashboard.${supplier.gap}`)}
+                      </span>
+                    </td>
                     <td style={{ padding: '16px 8px', color: 'var(--text-muted)' }}>{supplier.lastChecked}</td>
                     <td style={{ padding: '16px 8px', textAlign: 'right' }}>
                       <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '0.875rem' }}>{t('dashboard.btn_details')}</button>

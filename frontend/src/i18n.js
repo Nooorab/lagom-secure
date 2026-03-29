@@ -42,7 +42,13 @@ const resources = {
         "btn_details": "View Details",
         "lbl_pass": "Pass",
         "lbl_fail": "Fail",
-        "lbl_pending": "Pending"
+        "lbl_pending": "Pending",
+        "search_placeholder": "Search 5,432 suppliers...",
+        "filter_btn": "Filter: Critical Risks",
+        "col_gap": "Critical Gap",
+        "gap_invalid": "Invalid TLS / Missing MFA",
+        "gap_awaiting": "Awaiting Policy Upload",
+        "gap_none": "—"
       },
       "portal": {
         "title": "Interactive Verification Portal",
@@ -131,7 +137,13 @@ const resources = {
         "btn_details": "Visa detaljer",
         "lbl_pass": "Godkänd",
         "lbl_fail": "Underkänd",
-        "lbl_pending": "Avvaktar"
+        "lbl_pending": "Avvaktar",
+        "search_placeholder": "Sök bland 5 432 leverantörer...",
+        "filter_btn": "Filter: Kritiska Risker",
+        "col_gap": "Kritisk Brist",
+        "gap_invalid": "Ogiltig TLS / Saknar MFA",
+        "gap_awaiting": "Väntar på policy",
+        "gap_none": "—"
       },
       "portal": {
         "title": "Interaktiv Verifieringsportal",
